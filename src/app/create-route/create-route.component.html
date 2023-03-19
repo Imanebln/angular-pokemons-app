@@ -1,0 +1,123 @@
+<div class="overflow-hidden bg-slate-100 shadow sm:rounded-lg mx-24 my-24 p-9">
+  <h1 class="text-center text-2xl text-blue-600 font-semibold">
+    Create a new Pokemon
+  </h1>
+
+  <div class="flex justify-center px-8 mt-10">
+    <form
+      [formGroup]="pokemonForm"
+      (ngSubmit)="submit()"
+      class="flex flex-col gap-6 w-full"
+    >
+      <div class="w-full flex flex-col gap-3">
+        <label for="name" class="text-base font-semibold">Name *</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          class="w-full border rounded-sm"
+        />
+        <small
+          class="text-red-500"
+          *ngIf="
+            getControl('name')?.hasError('required') &&
+            getControl('name')?.touched
+          "
+          >Name is Required</small
+        >
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <label for="description" class="text-base font-semibold"
+          >Description *</label
+        >
+        <input
+          type="text"
+          id="description"
+          formControlName="description"
+          class="border rounded-sm"
+        />
+        <small
+          class="text-red-500"
+          *ngIf="
+            getControl('description')?.hasError('required') &&
+            getControl('description')?.touched
+          "
+          >Description is Required</small
+        >
+      </div>
+
+      <div class="w-full flex flex-col gap-3">
+        <label for="attack" class="text-base font-semibold">Attack *</label>
+        <input
+          type="text"
+          id="attack"
+          formControlName="attack"
+          class="w-full border rounded-sm"
+        />
+        <small
+          class="text-red-500"
+          *ngIf="
+            getControl('attack')?.hasError('required') &&
+            getControl('attack')?.touched
+          "
+          >Attack is Required</small
+        >
+        <small
+          class="text-red-500"
+          *ngIf="
+            getControl('attack')?.hasError('max') &&
+            getControl('attack')?.touched
+          "
+          >Attack should be less than 100</small
+        >
+      </div>
+
+      <div class="w-full flex flex-col gap-3">
+        <label for="defense" class="text-base font-semibold">Defense *</label>
+        <input
+          type="text"
+          id="defense"
+          formControlName="defense"
+          class="w-full border rounded-sm"
+        />
+        <small
+          class="text-red-500"
+          *ngIf="
+            getControl('defense')?.hasError('required') &&
+            getControl('defense')?.touched
+          "
+          >Defense is Required</small
+        >
+        <small
+          class="text-red-500"
+          *ngIf="
+            getControl('defense')?.hasError('max') &&
+            getControl('defense')?.touched
+          "
+          >Defense should be less than 100</small
+        >
+      </div>
+      <div class="flex flex-nowrap">
+        <label for="evolution" class="text-base font-semibold"
+          >HasEvolution
+          <input
+            type="checkbox"
+            id="evolution"
+            formControlName="hasEvolution"
+          />
+        </label>
+      </div>
+
+      <div class="flex justify-between">
+        <button
+          type="submit"
+          [disabled]="isLoading || !canSubmit()"
+          class="rounded-sm border bg-lime-600 py-2 text-white px-4"
+        >
+          {{ !isLoading ? "Create" : "Creating..." }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

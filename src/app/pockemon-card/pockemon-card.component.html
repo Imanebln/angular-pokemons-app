@@ -1,0 +1,61 @@
+<div
+  class="col-span-1 flex flex-col text-center border shadow rounded-md h-full"
+>
+  <button
+    class="m-9 border rounded-md bg-red-600 hover:bg-red-800 text-white"
+    (click)="onDeleteClick()"
+    [disabled]="isDeleteLoading"
+  >
+    {{ !isDeleteLoading ? "Delete" : "loading" }}
+  </button>
+  <div class="flex flex-col gap-3 p-5">
+    <img class="mx-auto h-32 w-32" [src]="pokemon?.image" />
+    <h3 class="text-sm text-gray-900 mt-2 font-semibold">
+      <app-editable-element
+        [value]="pokemon?.name || ''"
+        (valueChange)="onNameChange($event)"
+      ></app-editable-element>
+    </h3>
+    <a class="text-gray-500" routerLink="/details/{{ pokemon?.id }}"
+      >See details</a
+    >
+    <div class="flex justify-center gap-2">
+      <p class="text-sm text-lime-600 font-semibold">
+        Attack :
+        <app-editable-element
+          [value]="pokemon?.attack || ''"
+          (valueChange)="onAttackChange($event)"
+        ></app-editable-element>
+      </p>
+      <p class="text-sm text-red-700 font-semibold">
+        defense :
+        <app-editable-element
+          [value]="pokemon?.defense || ''"
+          (valueChange)="onDefenseChange($event)"
+        ></app-editable-element>
+      </p>
+    </div>
+
+    <div class="flex justify-center gap-1">
+      <img
+        *ngFor="let item of pokemon?.types"
+        [src]="item?.image"
+        [alt]="item?.name"
+        class="h-6 w-6"
+      />
+    </div>
+
+    <p class="text-sm text-gray-500">
+      {{ pokemon?.lastSeen | date : "shortDate" }}
+    </p>
+  </div>
+
+  <button
+    class="text-sm text-lime-600 font-semibold bg-blue-100 p-2"
+    data-testid="capture-btn"
+    (click)="onCapture()"
+    [ngClass]="{ 'text-lime-600 bg-lime-200': pokemon?.captured }"
+  >
+    {{ pokemon?.captured ? "Release" : "Capture" }}
+  </button>
+</div>
